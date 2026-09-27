@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Sigma Lab</string>
+    <string name="btn_back">رجوع</string>
+    <string name="btn_refresh">تحديث</string>
+    <string name="offline_title">جاري التحديث والصيانة الدورية</string>
+    <string name="offline_desc">نعمل حالياً على تحديث المنظومة المخبرية لتقديم أسرع وأدق نتائج لتحاليلكم الطبية.\nيرجى التأكد من اتصالك بالإنترنت والضغط على زر إعادة المحاولة بالأسفل.</string>
+    <string name="btn_retry">إعادة المحاولة والتحديث</string>
+    <string name="btn_contact_whatsapp">محادثة خدمة العملاء والزيارات المنزلية عبر واتساب</string>
+    <string name="server_url">https://sigma.great-site.net/</string>
+    <string name="sigma_whatsapp">201028005992</string>
+</resources>

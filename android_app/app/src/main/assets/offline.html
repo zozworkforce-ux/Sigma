@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>معامل سيجما للتحاليل الطبية | تحديث المنظومة</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100svh;
+            background-color: #030712;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Animated Molecular Canvas */
+        #offlineCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 3D Glassmorphic Maintenance Card */
+        .maintenance-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(11, 23, 40, 0.82);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 28px;
+            padding: 32px 22px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            animation: cardFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardFadeIn {
+            0% { opacity: 0; transform: translateY(24px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Logo Area with Glowing Neon Halo */
+        .logo-box {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-halo {
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(16, 185, 129, 0.18) 50%, transparent 75%);
+            animation: pulseHalo 3.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseHalo {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            100% { transform: scale(1.15); opacity: 0.95; }
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 8px 20px rgba(56, 189, 248, 0.4));
+        }
+
+        /* Status Pill */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #10b981;
+            font-size: 0.78rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            margin-bottom: 14px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulseDot 1.6s infinite alternate;
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(0.8); opacity: 0.6; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Headings & Descriptions */
+        .brand-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+
+        .brand-subtitle {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #38bdf8;
+            letter-spacing: 0.05em;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .maintenance-desc {
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.78);
+            margin-bottom: 24px;
+            padding: 0 6px;
+        }
+
+        .maintenance-desc strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* Buttons Stack */
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            height: 50px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+        }
+
+        /* Primary Retry Button */
+        .btn-retry {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.45);
+        }
+
+        .btn-retry:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+        }
+
+        /* WhatsApp Button */
+        .btn-whatsapp {
+            background: rgba(34, 197, 94, 0.12);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.35);
+        }
+
+        .btn-whatsapp:active {
+            background: rgba(34, 197, 94, 0.2);
+            transform: scale(0.97);
+        }
+
+        /* Hotline Button */
+        .btn-hotline {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-hotline:active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(0.97);
+        }
+
+        .spin-icon {
+            animation: spin 0.85s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer-note {
+            margin-top: 18px;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.45);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Particles Background -->
+    <canvas id="offlineCanvas"></canvas>
+
+    <!-- Main Maintenance Card -->
+    <div class="maintenance-card">
+        
+        <!-- Animated Logo Box -->
+        <div class="logo-box">
+            <div class="logo-halo"></div>
+            <img src="sigma_logo.png" alt="Sigma Labs" class="logo-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 24 24\' fill=\'%2338bdf8\'><path d=\'M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z\'/></svg>'">
+        </div>
+
+        <!-- Live Diagnostics Status -->
+        <div class="status-pill">
+            <span class="pulse-dot"></span>
+            <span>الفروع وسحب العينات تعمل 24/7</span>
+        </div>
+
+        <h1 class="brand-title">معامل سيجما للتحاليل الطبية</h1>
+        <div class="brand-subtitle">المنظومة الرقمية قيد التحديث الدوري</div>
+
+        <p class="maintenance-desc">
+            نعمل حالياً على تحديث المنظومة المخبرية لتقديم أسرع خدمة لنتائج التحاليل وحجز الزيارات المنزلية بدقة متناهية.<br>
+            <strong>جميع فروعنا تستقبلكم على مدار الساعة وسحب العينات متاح فوراً.</strong>
+        </p>
+
+        <!-- Touch Buttons Stack -->
+        <div class="btn-stack">
+            <!-- Retry Button -->
+            <button type="button" class="btn-action btn-retry" id="btnRetry" onclick="triggerRetry()">
+                <span id="retryIcon">🔄</span>
+                <span>إعادة المحاولة والتحديث</span>
+            </button>
+
+            <!-- Direct WhatsApp -->
+            <a href="https://wa.me/201028005992" class="btn-action btn-whatsapp" id="btnWa" onclick="triggerWhatsApp(event)">
+                <span>💬</span>
+                <span>سحب منزلي واستفسار واتساب</span>
+            </a>
+
+            <!-- Hotline Direct -->
+            <a href="tel:19736" class="btn-action btn-hotline" id="btnPhone" onclick="triggerHotline(event)">
+                <span>📞</span>
+                <span>الخط الساخن: 19736 (24 ساعة)</span>
+            </a>
+        </div>
+
+        <div class="footer-note">
+            Sigma Clinical Laboratories • ISO 15189 Certified
+        </div>
+    </div>
+
+    <!-- Offline Particle Network Script (100% Self-Contained) -->
+    <script>
+        // 1. Molecular Particles Animation (Runs pure offline)
+        (function() {
+            const canvas = document.getElementById('offlineCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            let w = canvas.width = window.innerWidth;
+            let h = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }, { passive: true });
+
+            const count = 28;
+            const maxDist = 130;
+            const particles = Array.from({ length: count }, () => ({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                radius: Math.random() * 2.2 + 2,
+                color: Math.random() > 0.4 ? '#38bdf8' : '#10b981'
+            }));
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                for (let i = 0; i < count; i++) {
+                    for (let j = i + 1; j < count; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < maxDist) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.35 * (1 - dist / maxDist)})`;
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > w) p.vx *= -1;
+                    if (p.y < 0 || p.y > h) p.vy *= -1;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.shadowColor = p.color;
+                    ctx.shadowBlur = 8;
+                    ctx.fill();
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        // 2. Action Handlers (App Bridge Aware)
+        function triggerRetry() {
+            const icon = document.getElementById('retryIcon');
+            const btn = document.getElementById('btnRetry');
+            if (icon) icon.classList.add('spin-icon');
+            if (btn) {
+                btn.style.opacity = '0.75';
+                btn.style.pointerEvents = 'none';
+            }
+
+            setTimeout(() => {
+                // If inside native Android WebView with Bridge
+                if (window.Android && typeof window.Android.reloadApp === 'function') {
+                    window.Android.reloadApp();
+                } else if (window.AndroidNotificationBridge && typeof window.AndroidNotificationBridge.reloadApp === 'function') {
+                    window.AndroidNotificationBridge.reloadApp();
+                } else {
+                    window.location.href = 'index.php?r=' + Date.now();
+                }
+            }, 600);
+        }
+
+        function triggerWhatsApp(e) {
+            if (window.Android && typeof window.Android.openWhatsApp === 'function') {
+                e.preventDefault();
+                window.Android.openWhatsApp();
+            } else if (window.AndroidNotificationBridge && typeof window.AndroidNotificationBridge.openWhatsApp === 'function') {
+                e.preventDefault();
+                window.AndroidNotificationBridge.openWhatsApp();
+            }
+        }
+
+        function triggerHotline(e) {
+            if (window.Android && typeof window.Android.callHotline === 'function') {
+                e.preventDefault();
+                window.Android.callHotline('19736');
+            } else if (window.AndroidNotificationBridge && typeof window.AndroidNotificationBridge.callHotline === 'function') {
+                e.preventDefault();
+                window.AndroidNotificationBridge.callHotline('19736');
+            }
+        }
+
+        // 3. Auto-reconnect listener when connection restores
+        window.addEventListener('online', () => {
+            triggerRetry();
+        });
+    </script>
+</body>
+</html>
