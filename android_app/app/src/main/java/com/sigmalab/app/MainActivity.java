@@ -1,4 +1,4 @@
-﻿package com.sigmalab.app;
+package com.sigmalab.app;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -41,13 +41,13 @@ import com.onesignal.debug.LogLevel;
 
 public class MainActivity extends AppCompatActivity {
 
-    // ðŸŒŸ Ø±Ø§Ø¨Ø· Ù…ÙˆÙ‚Ø¹ Ù…Ø¹Ù…Ù„ Ø³ÙŠØ¬Ù…Ø§ Ø§Ù„Ù…Ø¨Ø§Ø´Ø± Ø¹Ù„Ù‰ Ø§Ù„Ø§Ø³ØªØ¶Ø§ÙØ©
+    // Sigma Lab - Direct site URL
     private static final String DEFAULT_URL = "https://sigma.great-site.net/";
     private static final String WHATSAPP_NUMBER = "201028005992";
     private static final String NOTIF_CHANNEL_ID = "sigma_labs_notifications";
 
-    // ðŸŒŸ OneSignal Cloud Push Settings (Ø³Ø­Ø§Ø¨ÙŠ Ù„Ø¥ÙŠÙ‚Ø§Ø¸ Ø§Ù„Ù‡Ø§ØªÙ Ø­ØªÙ‰ Ù„Ùˆ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ Ù…ØºÙ„Ù‚ ØªÙ…Ø§Ù…Ø§Ù‹)
-    private static final String ONESIGNAL_APP_ID = "4517bc46-7440-40ae-85cd-0ea006df919b";
+    // OneSignal App ID
+    private static final String ONESIGNAL_APP_ID = "19219beb-7b6e-45b5-a38e-4363ed2b688c";
 
     private WebView webView;
     private ProgressBar progressBar;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // 6. Start Periodic Background Notification Sync (ÙŠØ¹Ù…Ù„ Ø­ØªÙ‰ Ù„Ùˆ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ Ù…ØºÙ„Ù‚ ÙƒØ¨Ø¯ÙŠÙ„ Ù…Ø­Ù„ÙŠ)
+        // 6. Start Periodic Background Notification Sync
         NotificationSyncReceiver.schedulePeriodicSync(this);
 
         // 7. Request OneSignal Push Permission & Setup Click Listener
@@ -147,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Ø¥Ø´Ø¹Ø§Ø±Ø§Øª Ù…Ø¹Ø§Ù…Ù„ Ø³ÙŠØ¬Ù…Ø§ Ù„Ù„ØªØ­Ø§Ù„ÙŠÙ„ Ø§Ù„Ø·Ø¨ÙŠØ©";
-            String description = "Ù†ØªØ§Ø¦Ø¬ Ø§Ù„ØªØ­Ø§Ù„ÙŠÙ„ ÙˆØ§Ù„Ø¹Ø±ÙˆØ¶ ÙˆØªÙ†Ø¨ÙŠÙ‡Ø§Øª Ø§Ù„Ø­Ø¬ÙˆØ²Ø§Øª Ø§Ù„Ø·Ø¨ÙŠØ©";
+            CharSequence name = "\u0625\u0634\u0639\u0627\u0631\u0627\u062a \u0645\u0639\u0627\u0645\u0644 \u0633\u064a\u062c\u0645\u0627 \u0644\u0644\u062a\u062d\u0627\u0644\u064a\u0644 \u0627\u0644\u0637\u0628\u064a\u0629";
+            String description = "\u0646\u062a\u0627\u0626\u062c \u0627\u0644\u062a\u062d\u0627\u0644\u064a\u0644 \u0648\u0627\u0644\u0639\u0631\u0648\u0636 \u0648\u062a\u0646\u0628\u064a\u0647\u0627\u062a \u0627\u0644\u062d\u062c\u0648\u0632\u0627\u062a \u0627\u0644\u0637\u0628\u064a\u0629";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(NOTIF_CHANNEL_ID, name, importance);
             channel.setDescription(description);
@@ -181,13 +181,13 @@ public class MainActivity extends AppCompatActivity {
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
 
-        // Clean User-Agent to avoid host bot-check blocking images
+        // Clean User-Agent to avoid host bot-check blocking
         String userAgent = settings.getUserAgentString();
         if (userAgent != null && userAgent.contains("; wv")) {
             settings.setUserAgentString(userAgent.replace("; wv", ""));
         }
 
-        // Session & Cookie Persistence (Ø­ÙØ¸ Ø¬Ù„Ø³Ø© ÙˆÙ„ÙŠ Ø§Ù„Ø£Ù…Ø± ÙˆØ§Ù„Ù…Ø¹Ù„Ù…Ø§Øª)
+        // Session & Cookie Persistence
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         cookieManager.setAcceptThirdPartyCookies(webView, true);
@@ -202,16 +202,16 @@ public class MainActivity extends AppCompatActivity {
         // Custom WebViewClient with Maintenance & Offline Interception
         webView.setWebViewClient(new CustomWebViewClient());
 
-        // Custom WebChromeClient for Progress & File Uploads (Camera / Photos)
+        // Custom WebChromeClient for Progress & File Uploads
         webView.setWebChromeClient(new CustomWebChromeClient());
 
-        // Native Notification Bridge (Ø±Ø¨Ø· Ø¥Ø´Ø¹Ø§Ø±Ø§Øª ÙˆØ®Ø¯Ù…Ø§Øª Ø§Ù„Ù…ÙˆÙ‚Ø¹ Ø¨Ù†Ø¸Ø§Ù… Ø§Ù„Ø£Ù†Ø¯Ø±ÙˆÙŠØ¯)
+        // Native Bridge for offline.html JS calls
         NotificationBridge bridge = new NotificationBridge();
         webView.addJavascriptInterface(bridge, "AndroidNotificationBridge");
         webView.addJavascriptInterface(bridge, "Android");
     }
 
-    // Native Bridge class called from JavaScript
+    // Native Bridge class called from JavaScript (offline.html etc.)
     public class NotificationBridge {
         @android.webkit.JavascriptInterface
         public void reloadApp() {
@@ -344,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
         isOfflineState = true;
         progressBar.setVisibility(View.GONE);
         swipeRefresh.setRefreshing(false);
-        // ØªØ­Ù…ÙŠÙ„ ØµÙØ­Ø© Ø§Ù„ØµÙŠØ§Ù†Ø© Ø§Ù„ÙØ§Ø®Ø±Ø© Ø§Ù„Ù…Ø­ÙÙˆØ¸Ø© Ù…Ø­Ù„ÙŠØ§Ù‹ Ø¯Ø§Ø®Ù„ Ø§Ù„Ù€ APK Ø¨Ø¯ÙˆÙ† Ø§Ù„Ø­Ø§Ø¬Ø© Ù„Ù„Ø¥Ù†ØªØ±Ù†Øª
+        // Load luxury offline page from local APK asset - no internet needed
         webView.loadUrl("file:///android_asset/offline.html");
         webView.setVisibility(View.VISIBLE);
         offlineContainer.setVisibility(View.GONE);
@@ -369,12 +369,12 @@ public class MainActivity extends AppCompatActivity {
     private void openWhatsApp() {
         try {
             String url = "https://api.whatsapp.com/send?phone=" + WHATSAPP_NUMBER +
-                    "&text=" + Uri.encode("Ø§Ù„Ø³Ù„Ø§Ù… Ø¹Ù„ÙŠÙƒÙ….. Ø£Ø³ØªÙØ³Ø± Ø¨Ø®ØµÙˆØµ Ø®Ø¯Ù…Ø§Øª ÙˆÙ…Ø¹Ø§Ù…Ù„ Ø³ÙŠØ¬Ù…Ø§ Ù„Ù„ØªØ­Ø§Ù„ÙŠÙ„ Ø§Ù„Ø·Ø¨ÙŠØ©");
+                    "&text=" + Uri.encode("\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645.. \u0623\u0633\u062a\u0641\u0633\u0631 \u0628\u062e\u0635\u0648\u0635 \u062e\u062f\u0645\u0627\u062a \u0648\u0645\u0639\u0627\u0645\u0644 \u0633\u064a\u062c\u0645\u0627 \u0644\u0644\u062a\u062d\u0627\u0644\u064a\u0644 \u0627\u0644\u0637\u0628\u064a\u0629");
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, "ØªØ·Ø¨ÙŠÙ‚ ÙˆØ§ØªØ³Ø§Ø¨ ØºÙŠØ± Ù…Ø«Ø¨Øª Ø¹Ù„Ù‰ Ø¬Ù‡Ø§Ø²Ùƒ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "\u062a\u0637\u0628\u064a\u0642 \u0648\u0627\u062a\u0633\u0627\u0628 \u063a\u064a\u0631 \u0645\u062b\u0628\u062a \u0639\u0644\u0649 \u062c\u0647\u0627\u0632\u0643", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -387,9 +387,9 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ─────────────────────────────────────────────────────────────
     // Custom WebViewClient
-    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ─────────────────────────────────────────────────────────────
     private class CustomWebViewClient extends WebViewClient {
 
         @Override
@@ -424,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
             showOfflineScreen();
         }
 
-        // Catch HTTP 500, 502, 503, 504 server errors (ØªØ­Øª Ø§Ù„ØµÙŠØ§Ù†Ø©)
+        // Catch HTTP 500, 502, 503, 504 server errors
         @Override
         public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
             super.onReceivedHttpError(view, request, errorResponse);
@@ -449,7 +449,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private boolean handleExternalUrls(String url) {
-            // Handle tel:, mailto:, whatsapp: links in external apps
             if (url.startsWith("tel:") || url.startsWith("mailto:") || url.startsWith("whatsapp:") || url.startsWith("https://wa.me/")) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -463,9 +462,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ─────────────────────────────────────────────────────────────
     // Custom WebChromeClient
-    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ─────────────────────────────────────────────────────────────
     private class CustomWebChromeClient extends WebChromeClient {
 
         @Override
@@ -490,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, FILE_CHOOSER_REQUEST_CODE);
             } catch (ActivityNotFoundException e) {
                 fileUploadCallback = null;
-                Toast.makeText(MainActivity.this, "ØªØ¹Ø°Ø± ÙØªØ­ Ø§Ù„Ù…Ø¹Ø±Ø¶ Ø£Ùˆ Ø§Ù„ÙƒØ§Ù…ÙŠØ±Ø§", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "\u062a\u0639\u0630\u0631 \u0641\u062a\u062d \u0627\u0644\u0645\u0639\u0631\u0636 \u0623\u0648 \u0627\u0644\u0643\u0627\u0645\u064a\u0631\u0627", Toast.LENGTH_SHORT).show();
                 return false;
             }
             return true;
